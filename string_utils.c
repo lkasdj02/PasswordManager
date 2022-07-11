@@ -29,12 +29,23 @@ int replace(char *s, int pos, char replacement) {
 }
 
 void clear_string(char *s, int len) {
+    
+    // PRE: s è un puntatore ad un array di caratteri e len è la sua lunghezza.
+    // POST: la funzione ritorna l'array s ma pieno di spazi (un'array ripulito dai caratteri precedenti). 
+
     for (int i = 0; i < len; i += 1) {
         s[i] = ' ';
     }
 }
 
 int split(char *s, char split, char ***puntatore) {
+    
+    // PRE: s è un puntatore ad un array di caratteri, split è il carattere separatore e 
+    // puntatore è il riferimento (indirizzo) ad un puntatore a puntatore.
+    
+    // POST: la funzione ritorna il numero di parole che si ottengono dividendo la stringa in corrispondenza
+    // del carattere separatore; inoltre memorizza nella HEAP le parole ottenute da tale divisione.
+    // questo sono accedibili alla funzione chiamante mediante puntatore a puntatore.
     
     // BUFFER
     char buffer[255]; 
