@@ -39,23 +39,24 @@ int split(char *s, char split, char ***puntatore) {
     // BUFFER
     char buffer[255]; 
     int buffer_count = 0;
-
+    
+    // VARIABILI UTILI AL PROCESSO DI SPLITTING
     int char_count = 0;
     int string_count = 0;
     
 
-    // CONTARE NUMERO PAROLE.
+    // CONTARE NUMERO PAROLE in base al carattere split.
     for (int i = 0; i < len(s); i += 1) {
         if (s[i] == split) {
             char_count+=1;
         }
     } 
     string_count = char_count + 1;
-    printf("string count: %d\n\n", string_count);
+    printf("string count: %d\n\n", string_count); // DEBUG
      
     // dichiarazione di un array di puntatori locale.
     char *words[string_count];
-    char **array_puntatori = malloc(sizeof(char *) * string_count);
+    *puntatore = malloc(sizeof(char *) * string_count);
     string_count = 0; // reinizializzazione per poter copiare i puntatori nell'array di puntatori denominato words.
     
     for(int i = 0; i < len(s); i += 1) {
@@ -90,12 +91,11 @@ int split(char *s, char split, char ***puntatore) {
     // DEBUG 
     for (int i = 0; i < string_count; i += 1)
         printf("stringa words in posizione %d: %s; \t indirizzo nella heap: %p.\n", i, words[i], words[i]);
-    
+
     for (int i = 0; i < string_count; i += 1) {
-        array_puntatori[i] = words[i];
-        printf("stringa words in posizione %d: %s; \t indirizzo nella heap: %p.\n", i, array_puntatori[i], array_puntatori[i]);
+        *((*puntatore) + i) = words[i];
+        //printf("stringa words in posizione %d: %s; \t indirizzo nella heap: %p.\n", i, array_puntatori[i], array_puntatori[i]);
     } 
-    *puntatore = array_puntatori;
     return string_count;
 }
 
