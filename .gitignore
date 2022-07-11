@@ -1,2 +1,5 @@
-a.out
+#ignore all binary files
+*.dat
 
+#ignore all text files
+*.txt
