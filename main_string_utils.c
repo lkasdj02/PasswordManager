@@ -25,19 +25,19 @@ int main() {
     int words = split(stringa, ' ', &puntatore_parole); // leonardo basso leo
 
     printf("PAROLE NEL MAIN: %d.\n", words);
+    printf("indirizzo nella heap dell'array di parole: %p \t sizeof puntatore: %lu \n", puntatore_parole, sizeof(puntatore_parole));
     for (int i = 0; i < words; i += 1) {
-        printf("parola %d: %s\n", i, puntatore_parole[i]);
+        printf("parola %d: %s. \t indirizzo nella heap: %p \n", i, *(puntatore_parole + i), puntatore_parole[i]);
     }
+    
+    // FREE DELLA MEMORIA DINAMICA.
     // a questo punto, dopo aver allocato queste parole...
     // bisogna fare una cosa...deallocarle...
     // si deallocano prima i contenuti puntato dai vari puntatori a char creati con la funzione split
     // poi si vanno a deallocare i contenuti stessi.
-    // 
-    /*
-    int *p = (int *)malloc(sizeof(int) * 4);
 
-    for (int i = 0; i < 4; i += 1) {
-        *(p + i) = i;
-        printf("%d", *(p + i));
-    } */
+    for (int i = 0; i < words; i += 1) {
+        free(puntatore_parole[i]);
+    }
+    free(puntatore_parole);
 }
