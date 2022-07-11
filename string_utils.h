@@ -2,4 +2,5 @@
 
 int len(char *s);
 int replace(char *s, int pos, char replacement);
-void split(char *s, char **r);
+void clear_string(char *s, int len);
+int split(char *s, char split, char ***puntatore);
