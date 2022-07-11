@@ -1,4 +1,5 @@
 #define MAX_LENGTH 255
+#define SPACE ' ' 
 #include <stdio.h>
 #include <stdlib.h>
 #include "string_utils.h"
@@ -22,7 +23,7 @@ int main() {
      
     char **puntatore_parole;
     
-    int words = split(stringa, ' ', &puntatore_parole); // leonardo basso leo
+    int words = split(stringa, SPACE, &puntatore_parole); // leonardo basso leo
 
     printf("PAROLE NEL MAIN: %d.\n", words);
     printf("indirizzo nella heap dell'array di parole: %p \t sizeof puntatore: %lu \n", puntatore_parole, sizeof(puntatore_parole));
