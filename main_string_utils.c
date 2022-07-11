@@ -28,6 +28,11 @@ int main() {
     for (int i = 0; i < words; i += 1) {
         printf("parola %d: %s\n", i, puntatore_parole[i]);
     }
+    // a questo punto, dopo aver allocato queste parole...
+    // bisogna fare una cosa...deallocarle...
+    // si deallocano prima i contenuti puntato dai vari puntatori a char creati con la funzione split
+    // poi si vanno a deallocare i contenuti stessi.
+    // 
     /*
     int *p = (int *)malloc(sizeof(int) * 4);
 
