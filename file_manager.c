@@ -21,6 +21,13 @@ RECORD *create_record(char *sito, char *account, char *password) {
 
 int insert(FILE *fp, char *path, char *mode, RECORD *r) {
 
+    // PRE: fp è un puntatore ad una struttura di tipo FILE.
+    // path e mode sono puntatori a char che contengono il path del file nel quale andare a fare operazioni sui record
+    // la modalità di accesso al file.
+    // r è il valore di un puntatore una variabile di tipo RECORD all'interno della memoria HEAP; sua memorizzazione.
+    
+    // POST: insert ritorna 1 se il record è stato scritto correttamente all'interno del file, 0 altrimenti.
+    
     // apertura del file esempio.dat.
     fp = fopen("esempio.dat", mode);
 
@@ -35,6 +42,14 @@ int insert(FILE *fp, char *path, char *mode, RECORD *r) {
 }
 
 int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
+    
+    // PRE: fp è un puntatore ad una struttura di tipo FILE.
+    // path e mode sono puntatori a char che contengono il path del file nel quale andare a fare operazioni sui record
+    // la modalità di accesso al file.
+    // array_destinazione è un riferimento ad un array; il chiamante infatti passa il riferimento al suo array in modo
+    // da lasciare alla funzione il compito di gestire l'allocazione della memoria necessaria alla sua memorizzazione.
+    
+    // POST: select all ritorna il numero di record letti all'interno del file specificato da path.
     
     // conto numero record nel file.
     fp = fopen("esempio.dat", mode);
