@@ -65,7 +65,7 @@ int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     // CREAZIONE DI UN ARRAY DI RECORD nella memoria dinamica
     *array_destinazione = (RECORD *)malloc(sizeof(RECORD) * numero_record);
     for (int i = 0; i < numero_record; i += 1)
-         fread(&(*array_destinazione)[i], sizeof(RECORD), 1, fp);
+         fread(*(array_destinazione) + i, sizeof(RECORD), 1, fp);
 
     // leggere ogni singolo record.
     // fread(*array_destinazione, sizeof(RECORD), numero_record, fp); 
