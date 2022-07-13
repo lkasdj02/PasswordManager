@@ -32,8 +32,10 @@ int insert(FILE *fp, char *path, char *mode, RECORD *r) {
     fp = fopen("esempio.dat", mode);
 
     // buona programmazione
-    if (fp == NULL) 
+    if (fp == NULL) {
+        fclose(fp);
         return 0;
+    }
     else 
         fwrite(r, sizeof(RECORD), 1, fp); 
 
