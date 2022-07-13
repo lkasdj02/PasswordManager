@@ -1,6 +1,5 @@
 #include "string_utils.h"
 #include <stdlib.h>
-#include <string.h>
 
 int len(char *s) {
 
@@ -11,6 +10,11 @@ int len(char *s) {
     while (*(s + counter) != '\0') 
         counter += 1;
     return counter;
+}
+
+void copy(char *s, char *c) {
+    for (int i = 0; i < len(c); i += 1)
+        s[i] = c[i];
 }
 
 int replace(char *s, int pos, char replacement) {
@@ -88,7 +92,8 @@ int split(char *s, char split, char ***puntatore) {
             char *p = (char *)malloc(sizeof(char) * len(buffer)); 
             // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
 
-            strcpy(p, buffer); // copia della stringa la stringa.
+            copy(p, buffer); 
+            //strcpy(p, buffer); // copia della stringa la stringa.
             words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
             
             clear_string(buffer, buffer_count); // "ripulire" il contenuto del buffer. 
@@ -104,7 +109,8 @@ int split(char *s, char split, char ***puntatore) {
                 char *p = (char *)malloc(sizeof(char) * len(buffer)); 
                 // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
 
-                strcpy(p, buffer); // copia della stringa la stringa.
+                copy(p, buffer);
+                //strcpy(p, buffer); // copia della stringa la stringa.
                 words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
             }
         } 

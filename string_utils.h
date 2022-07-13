@@ -1,6 +1,8 @@
 #include <stdio.h>
 
+
 int len(char *s);
+void copy(char *s, char *c);
 int replace(char *s, int pos, char replacement);
 int to_lowercase(char *s);
 void clear_string(char *s, int len);
