@@ -19,7 +19,13 @@ int main() {
     printf("\n"); 
     printf("lunghezza: %d\n", len(stringa)); 
     
+    // LOWERCASE TEST
+    int c = to_lowercase(stringa);
+    c ? 
+        printf("%s", stringa) : 
+        printf("vi è stato un problema con la funzione.");    
     // SPLIT TEST
+    /*
     char **puntatore_parole;
     int words = split(stringa, SPACE, &puntatore_parole); // leonardo basso leo
 
@@ -33,7 +39,7 @@ int main() {
     s ? 
         printf("memoria deallocata con successo") : 
         printf("vi è stato un problema con la gestione della memoria.");
-
+    */
     // FREE DELLA MEMORIA DINAMICA.
     // a questo punto, dopo aver allocato queste parole...
     // bisogna fare una cosa...deallocarle...

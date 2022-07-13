@@ -28,6 +28,17 @@ int replace(char *s, int pos, char replacement) {
         
 }
 
+int to_lowercase(char *s) {
+
+    // PRE: s è un puntatore ad un array di caratteri.
+    // POST: la funzione rimpiazza ogni singolo carattere alfabetico maiuscolo con il corrispondente minuscolo.
+    
+    for (int i = 0; i < len(s); i+=1) 
+        if (s[i] >= 65 && s[i] <= 90)
+            s[i]+=32; // conversione in codice ASCII minuscolo.
+    return 1;
+}
+
 void clear_string(char *s, int len) {
     
     // PRE: s è un puntatore ad un array di caratteri e len è la sua lunghezza.
