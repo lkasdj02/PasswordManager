@@ -19,7 +19,7 @@ RECORD *create_record(char *sito, char *account, char *password) {
     return ptr_to_record;
 }
 
-int insert(FILE *fp, char *mode, RECORD *r) {
+int insert(FILE *fp, char *path, char *mode, RECORD *r) {
 
     // apertura del file esempio.dat.
     fp = fopen("esempio.dat", mode);
@@ -34,12 +34,11 @@ int insert(FILE *fp, char *mode, RECORD *r) {
     return 1;
 }
 
-int select_all(FILE *fp, char *mode, RECORD **array_destinazione) {
+int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     
     // conto numero record nel file.
     fp = fopen("esempio.dat", mode);
     fseek(fp, 0, SEEK_END);
-    long pos = ftell(fp);
     int numero_record = (int)(ftell(fp) - 1) / sizeof(RECORD);
     printf("numero record: %d\n", numero_record);
 

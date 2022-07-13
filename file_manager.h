@@ -9,5 +9,5 @@ typedef struct record {
 } RECORD; 
 
 RECORD *create_record(char *sito, char *account, char *password);
-int select_all(FILE *fp, char *mode, RECORD **array_destinazione);
-int insert(FILE *fp, char *mode, RECORD *r);
+int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione);
+int insert(FILE *fp, char *path, char *mode, RECORD *r);
