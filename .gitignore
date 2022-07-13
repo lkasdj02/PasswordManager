@@ -3,3 +3,6 @@
 
 #ignore all text files
 *.txt
+
+# ignore unit testing files.
+main_file_manager.c
