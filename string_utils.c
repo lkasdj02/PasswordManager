@@ -110,3 +110,15 @@ int split(char *s, char split, char ***puntatore) {
     return string_count;
 }
 
+int free_split(char ***p, int words) {
+    
+    // PRE: p è il riferimento ad un puntatore a puntatore/i 
+    // POST: la funzione permette di ripulire la memoria allocata dinamicamente dalla funzione split.
+
+    for (int i = 0; i < words; i += 1) 
+        free((*p)[i]);
+    free(*p);
+    return 1;
+}
+
+
