@@ -1,6 +1,7 @@
 #include "file_manager.h"
 #include "string_utils.h"
 
+// questa funzione si presta bene all'uso di una lista.
 RECORD *create_record(char *sito, char *account, char *password) {
     
     // PRE: sito, account, password sono dei puntatori a char che conengono
@@ -43,6 +44,45 @@ int insert(FILE *fp, char *path, char *mode, RECORD *r) {
     return 1;
 }
 
+int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, RECORD **array_destinazione) {
+    
+    // PRE: fp è un puntatore ad una struttura di tipo FILE.
+    // path e mode sono puntatori a char che contengono il path del file nel quale andare a fare operazioni sui record
+    // la modalità di accesso al file.
+    // array_destinazione è un riferimento ad un array; il chiamante infatti passa il riferimento al suo array in modo
+    // da lasciare alla funzione il compito di gestire l'allocazione della memoria necessaria alla sua memorizzazione.
+    // sito e account sono dei puntatori ad array cdi char che permettono di fare una selezione basata su questi due parametri
+    // (sito e account rispettivamente). 
+    
+    // POST: select all ritorna il numero di record letti all'interno del file specificato da path.
+    
+    // contare numero record aventi il sito uguale.
+    
+    RECORD *appoggio;
+    int numero_record;
+    int contatore_record;
+    int i = 0;
+
+    fp = fopen("esempio.dat", mode);
+    
+    // contare numero record.
+    fseek(fp, 0, SEEK_END);
+    numero_record = (int)(ftell(fp) - 1) / sizeof(RECORD);
+    fseek(fp, 0, SEEK_SET); 
+
+
+    while (i < numero_record) {
+        fread(appoggio, sizeof(RECORD), 1, fp);
+        if (equals(appoggio->sito, sito)) {
+            contatore_record+=1;
+            *array_destinazione = realloc(*array_destinazione, sizeof(RECORD) * num_record);
+        }
+    } 
+
+    fclose(fp); // chiusura del file 
+    return contatore_record;     
+}
+
 int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     
     // PRE: fp è un puntatore ad una struttura di tipo FILE.
@@ -57,7 +97,6 @@ int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     fp = fopen("esempio.dat", mode);
     fseek(fp, 0, SEEK_END);
     int numero_record = (int)(ftell(fp) - 1) / sizeof(RECORD);
-    printf("numero record: %d\n", numero_record);
 
     // riposizionare fp all'inizio del file.
     fseek(fp, 0, SEEK_SET); 
@@ -67,7 +106,6 @@ int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     for (int i = 0; i < numero_record; i += 1)
          fread(*(array_destinazione) + i, sizeof(RECORD), 1, fp);
 
-    // leggere ogni singolo record.
     // fread(*array_destinazione, sizeof(RECORD), numero_record, fp); 
     fclose(fp);
 

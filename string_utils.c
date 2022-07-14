@@ -43,6 +43,22 @@ int to_lowercase(char *s) {
     return 1;
 }
 
+int equals(char *s1, char *s2) {
+
+    // PRE: s1 e s2 sono due array di caratteri
+    // POST: la funzione ritorna 1 se le due stringhe sono uguali
+    // 0 altrimenti.
+    
+    if (len(s1) != len(s2))
+        return 0;
+
+    for (int i = 0; i < len(s2); i += 1)
+        if (s1[i] != s2[i])
+            return 0;
+
+    return 1;
+}
+
 void clear_string(char *s, int len) {
     
     // PRE: s è un puntatore ad un array di caratteri e len è la sua lunghezza.

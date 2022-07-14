@@ -10,4 +10,5 @@ typedef struct record {
 
 RECORD *create_record(char *sito, char *account, char *password);
 int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione);
+int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, RECORD **array_destinazione); 
 int insert(FILE *fp, char *path, char *mode, RECORD *r);
