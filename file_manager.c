@@ -26,6 +26,48 @@ RECORD *create_record(char *sito, char *account, char *password) {
     return ptr_to_record;
 }
 
+int count_records(FILE *fp, char *path, char *mode) {
+    
+    // PRE: fp è un puntatore ad un file, path il suo percorso e mode
+    // la modalità con la quale si vuole accedere al file.
+    // POST: la funzione ritorna il numero record presente nel file specificato
+    // dal percorso.
+    
+    fp = fopen(path, mode);
+    int numero_record;
+
+    fseek(fp, 0, SEEK_END);
+    // printf("posizione fp: %lu\n", ftell(fp)); // DEBUG
+    numero_record = (int)(ftell(fp)) / sizeof(RECORD);
+    // printf("numero record: %d\n", numero_record); // DEBUG
+    fseek(fp, 0, SEEK_SET); 
+
+    fclose(fp);
+    return numero_record;
+   
+     
+}
+
+int find_position(FILE *fp, char *path, char *mode, char *s, char *a) {
+
+    
+    RECORD appoggio = { " ", " ", " " };
+    int posizione_record = -1;
+    int n = count_records(fp, path, mode);
+    printf("numero record: %d.\n", n);
+    printf("sito da cercare: %s \n", s); // DEBUG
+    printf("path: %s mode: %s\n", path, mode);
+    fp = fopen(path, mode);
+    for (int i = 0; i < n; i += 1) {
+        fread(&appoggio, sizeof(RECORD), 1, fp);
+        printf("sito1: %s \t account: %s \n", appoggio.sito, appoggio.mail); // DEBUG
+        if (equals(appoggio.sito, s) && equals(appoggio.mail, a))
+            posizione_record = i;
+    }
+    fclose(fp);
+    return posizione_record;
+}
+
 int insert(FILE *fp, char *path, char *mode, RECORD *r) {
 
     // PRE: fp è un puntatore ad una struttura di tipo FILE.
@@ -146,3 +188,18 @@ int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     }
     return numero_record;
 }
+
+int update_record(FILE *fp, char *path, char *mode, RECORD *r) {
+
+    int posizione;
+
+    printf("sito: %s \t account: %s \n", r->sito, r->mail); // DEBUG
+    // cercare posizione record
+    posizione = find_position(fp, path, mode, r->sito, r->mail); 
+    printf("la posizione del record cercato è: %d\n", posizione);
+    if (posizione != -1)
+        return 1;
+    else
+        return 0;
+}
+    
