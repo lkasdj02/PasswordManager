@@ -30,7 +30,7 @@ int insert(FILE *fp, char *path, char *mode, RECORD *r) {
     // POST: insert ritorna 1 se il record è stato scritto correttamente all'interno del file, 0 altrimenti.
     
     // apertura del file esempio.dat.
-    fp = fopen("esempio.dat", mode);
+    fp = fopen(path, mode);
 
     // buona programmazione
     if (fp == NULL) {
@@ -44,7 +44,7 @@ int insert(FILE *fp, char *path, char *mode, RECORD *r) {
     return 1;
 }
 
-int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, RECORD **array_destinazione) {
+int select_some(FILE *fp, char *path, char *mode, char *s, char *a, RECORD **array_destinazione) {
     
     // PRE: fp è un puntatore ad una struttura di tipo FILE.
     // path e mode sono puntatori a char che contengono il path del file nel quale andare a fare operazioni sui record
@@ -65,7 +65,7 @@ int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, REC
     int *posizioni_record = (int *)malloc(sizeof(int) * 1); // array di posizioni.
 
     // apertura del file
-    fp = fopen("esempio.dat", mode);
+    fp = fopen(path, mode);
     
     // contare numero record.
     fseek(fp, 0, SEEK_END);
@@ -74,9 +74,8 @@ int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, REC
 
     // contiamo numero record che rispettano i parametri della selezione. 
     while (i < numero_record) {
-
         fread(&appoggio, sizeof(RECORD), 1, fp);
-        if (equals((&appoggio)->sito, sito)) {
+        if (equals((&appoggio)->sito, s)) {
             if (contatore_record == 0) 
                 posizioni_record[contatore_record++] = i;
             else {
@@ -113,25 +112,31 @@ int select_all(FILE *fp, char *path, char *mode, RECORD **array_destinazione) {
     // la modalità di accesso al file.
     // array_destinazione è un riferimento ad un array; il chiamante infatti passa il riferimento al suo array in modo
     // da lasciare alla funzione il compito di gestire l'allocazione della memoria necessaria alla sua memorizzazione.
-    
     // POST: select all ritorna il numero di record letti all'interno del file specificato da path.
     
     int numero_record;
-    
-    fp = fopen("esempio.dat", mode);
+    fp = fopen(path, mode);
     
     // conto numero record nel file.
     fseek(fp, 0, SEEK_END);
-    numero_record = (int)(ftell(fp) - 1) / sizeof(RECORD);
+    printf("posizione fp: %lu\n", ftell(fp));
+    numero_record = (int)(ftell(fp)) / sizeof(RECORD);
+    printf("numero record: %d\n", numero_record);  
     fseek(fp, 0, SEEK_SET); 
 
-    // CREAZIONE DI UN ARRAY DI RECORD nella memoria dinamica
-    *array_destinazione = (RECORD *)malloc(sizeof(RECORD) * numero_record);
-    for (int i = 0; i < numero_record; i += 1)
-         fread(*(array_destinazione) + i, sizeof(RECORD), 1, fp);
+    if (numero_record == 0) { // se il numero di record è 0.
+        fclose(fp);
+        return 0;
+    } else {
+        // CREAZIONE DI UN ARRAY DI RECORD nella memoria dinamica
+        *array_destinazione = (RECORD *)malloc(sizeof(RECORD) * numero_record);
 
-    // fread(*array_destinazione, sizeof(RECORD), numero_record, fp); 
-    fclose(fp);
+        // lettura dei record e memorizzazione nell'array appena creato dinamicamente.
+        for (int i = 0; i < numero_record; i += 1)
+            fread(*(array_destinazione) + i, sizeof(RECORD), 1, fp);
 
+        // fread(*array_destinazione, sizeof(RECORD), numero_record, fp); 
+        fclose(fp);
+    }
     return numero_record;
 }

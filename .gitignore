@@ -1,6 +1,9 @@
 #ignore all binary files
 *.dat
 
+#ignore all binary files
+*.bin
+
 #ignore all text files
 *.txt
 
