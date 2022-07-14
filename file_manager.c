@@ -58,12 +58,13 @@ int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, REC
     
     // contare numero record aventi il sito uguale.
     
-    RECORD *appoggio;
+    RECORD appoggio = {" ", " ", " "};
     int numero_record = 0;
     int contatore_record = 0;
     int i = 0;
     int *posizioni_record = (int *)malloc(sizeof(int) * 1); // array di posizioni.
 
+    // apertura del file
     fp = fopen("esempio.dat", mode);
     
     // contare numero record.
@@ -73,29 +74,34 @@ int select_some(FILE *fp, char *path, char *mode, char *sito, char *account, REC
 
     // contiamo numero record che rispettano i parametri della selezione. 
     while (i < numero_record) {
-        fread(appoggio, sizeof(RECORD), 1, fp);
-        printf("appoggio->sito: %s \t sito: %s\n", appoggio->sito, sito);
-        printf("%d\n", equals(appoggio->sito, sito));
-        if (equals(appoggio->sito, sito)) {
-            if (contatore_record == 1) 
+
+        fread(&appoggio, sizeof(RECORD), 1, fp);
+        if (equals((&appoggio)->sito, sito)) {
+            if (contatore_record == 0) 
                 posizioni_record[contatore_record++] = i;
             else {
                 posizioni_record = (int *)realloc(posizioni_record, sizeof(int) * (++contatore_record)); // almeno un altro record è stato trovato.
-                posizioni_record[contatore_record] = i;
+                posizioni_record[contatore_record - 1] = i;
             }
         }
         i+=1;
     } 
+
     printf("record contati: %d\n", contatore_record);
-    fclose(fp); // chiusura del file 
 
     // allocare memoria necessaria ad ospitare n record che rispettano i parametri della selezione. 
     *array_destinazione = (RECORD *)malloc(sizeof(RECORD) * contatore_record);
-    for (int i = 0; i < contatore_record; i += 1)
-        printf("%d", posizioni_record[i]);
+    for (int i = 0; i < contatore_record; i += 1) {
+        fseek(fp, posizioni_record[i] * sizeof(RECORD), SEEK_SET);
+        fread(*(array_destinazione) + i, sizeof(RECORD), 1, fp);
+    }
+        
+        //printf("%d\n", posizioni_record[i]);
 
+    // CHIUSURA DEL FILE. 
+    fclose(fp);
 
-
+    // FREE DELLA MEMORIA
     free(posizioni_record); 
     return contatore_record;     
 }

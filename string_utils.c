@@ -13,8 +13,11 @@ int len(char *s) {
 }
 
 void copy(char *s, char *c) {
-    for (int i = 0; i < len(c); i += 1)
-        s[i] = c[i];
+    for (int i = 0; i <= len(c); i += 1)
+        if (i == len(c))
+            s[i] = '\0';
+        else
+            s[i] = c[i];
 }
 
 int replace(char *s, int pos, char replacement) {
