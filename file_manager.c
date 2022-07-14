@@ -9,6 +9,12 @@ RECORD *create_record(char *sito, char *account, char *password) {
     // POST: la funzione ritorna un puntatore ad una variabile allocatao dinamicamente
     // nella HEAP.
     
+    // CONTROLLO DI FLUSSO.
+    char *stringhe[3] = { sito, account, password };
+    for (int i = 0; i < 3; i += 1)
+        if (len(stringhe[i]) > sizeof(RECORD) / 3)
+            return NULL;
+
     // allocazione memoria per una variabile di tipo RECORD.
     RECORD *ptr_to_record = (RECORD*)malloc(sizeof(RECORD));
     // inizializzazione valori della struttura.
@@ -69,7 +75,9 @@ int select_some(FILE *fp, char *path, char *mode, char *s, char *a, RECORD **arr
     
     // contare numero record.
     fseek(fp, 0, SEEK_END);
-    numero_record = (int)(ftell(fp) - 1) / sizeof(RECORD);
+    printf("posizione fp: %lu\n", ftell(fp)); // DEBUG
+    numero_record = (int)(ftell(fp)) / sizeof(RECORD);
+    printf("numero record: %d\n", numero_record); // DEBUG
     fseek(fp, 0, SEEK_SET); 
 
     // contiamo numero record che rispettano i parametri della selezione. 
@@ -85,9 +93,7 @@ int select_some(FILE *fp, char *path, char *mode, char *s, char *a, RECORD **arr
         }
         i+=1;
     } 
-
-    printf("record contati: %d\n", contatore_record);
-
+    
     // allocare memoria necessaria ad ospitare n record che rispettano i parametri della selezione. 
     *array_destinazione = (RECORD *)malloc(sizeof(RECORD) * contatore_record);
     for (int i = 0; i < contatore_record; i += 1) {
