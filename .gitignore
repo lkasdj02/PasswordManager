@@ -7,5 +7,11 @@
 #ignore all text files
 *.txt
 
+#ignore all executable files
+*.h.gch
+
 # ignore unit testing files.
 main_file_manager.c
+
+#ignore all executables.
+*.out
