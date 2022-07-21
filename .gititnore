@@ -1,0 +1,6 @@
+# executable files.
+*.out
+
+# all h.gch files
+*.h.gch
+
