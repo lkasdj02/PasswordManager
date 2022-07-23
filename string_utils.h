@@ -1,4 +1,5 @@
 #include <stdio.h>
+#define VOID_STRING " "
 
 
 int len(char *s);

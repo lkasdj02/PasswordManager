@@ -52,8 +52,9 @@ int equals(char *s1, char *s2) {
     // POST: la funzione ritorna 1 se le due stringhe sono uguali
     // 0 altrimenti.
     
-    if (len(s1) != len(s2))
+    if (len(s1) != len(s2)) {
         return 0;
+    }
 
     for (int i = 0; i < len(s2); i += 1)
         if (s1[i] != s2[i])

@@ -1,4 +1,7 @@
+#include "../string_utils.h"
 #include <stdlib.h>
+#include <string.h> 
+#include <stdio.h>
 
 typedef struct record {
     char sito[50];
@@ -11,7 +14,7 @@ typedef struct record {
 RECORD *init(char *s, char *a, char *k, RECORD *next);
 int count(RECORD *head);
 void print(RECORD *head);
-RECORD *find(char *s, char *a);
+int find(RECORD *head, RECORD ***V, char *s, char *a);
 int push(RECORD **head, char *s, char *a, char *k);
 int insert(char *s, char *a, char *k);
 int delete(char *s, char *a, char *k);

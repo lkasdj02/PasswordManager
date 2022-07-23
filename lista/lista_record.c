@@ -1,7 +1,5 @@
 #include "lista_record.h"
-#include <string.h> 
-#include <stdio.h>
-
+ 
 RECORD *init(char *s, char *a, char *k, RECORD *next) {
   RECORD *new_record = (RECORD *)malloc(sizeof(RECORD));
   strcpy(new_record->sito, s);
@@ -32,8 +30,38 @@ void print(RECORD *head) {
   }
 }
 
-RECORD *find(char *s, char *a) {
-  return NULL;
+int find(RECORD *head, RECORD ***V, char *s, char *a) {
+  
+  // dichiarazione variabili
+  int count = 0; 
+  RECORD *current = head;
+
+  if (equals(s, VOID_STRING) && equals(a, VOID_STRING)) {
+    printf("sito non immesso, e-mail non immessa. impossibile trovare degli elementi validi con questi parametri.\n"); 
+    return count;
+  }
+  else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING) == 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
+
+    printf("sito immesso, e-mail non immessa.\n"); 
+
+    while(current != NULL) { 
+      if (strcmp(current->sito, s) == 0)
+        count+=1; 
+      current = current->next;
+    }
+    return count;
+
+  } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING)>0) {
+
+    printf("sito immesso: %s, e-mail immessa: %s.\n", s, a); 
+
+    while(current != NULL) { 
+      if (strcmp(s, current->sito) == 0 && strcmp(a, current->mail) == 0)
+        count+=1; 
+      current = current->next;
+    }
+    return count;
+  }
 }
 
 int push(RECORD **head, char *s, char *a, char *k) {
@@ -52,6 +80,10 @@ int push(RECORD **head, char *s, char *a, char *k) {
   return 1;
 }
 
+int update(char *s, char *a, char *new_k) {
+  // do something
+  return 0;
+}
 int insert(char *s, char *a, char *k) { // inserimento in una posizione specifica
   // do something
   return 0;
@@ -62,8 +94,5 @@ int delete(char *s, char *a, char *k) {
   return 0;
 }
 
-int update(char *s, char *a, char *new_k) {
-  // do something
-  return 0;
-}
+
 
