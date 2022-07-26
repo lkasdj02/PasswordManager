@@ -10,12 +10,12 @@ salvate in file binari sotto forma di RECORD.
     in questo programma viene acceduto troppe volte il disco...il che è uno shifo.
 2. implementare una lista di RECORD. questo è il modo migliore per fare questo programma.
 
-3 finire la funzione di find nella lista record.
+3. finire la funzione di find nella lista record.
 
-4 usare la funzione find per l'update di un elemento.
+4. usare la funzione find per l'update di un elemento.
 
-5 usare la funzione find per il delete di un elemento.
+5. usare la funzione find per il delete di un elemento.
 
-6 implementare la funzione free_memory per la funzione find.
+6. implementare la funzione free_memory per la funzione find.
 
-7 implementare la funzione free_memory per tutta la lista di RECORD.
+7. implementare la funzione free_memory per tutta la lista di RECORD.
