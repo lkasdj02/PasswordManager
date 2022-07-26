@@ -1,8 +1,6 @@
 # PASSWORD MANAGER  
 
-Questo è un manager di password stile terminale; in particolare, usa un prompt e dei comandi ai fini di visualizzare le password
-
-salvate in file binari sotto forma di RECORD.
+Questo è un manager di password stile terminale; in particolare, usa un prompt e dei comandi ai fini di visualizzare le password salvate in file binari sotto forma di RECORD.
 
 # COSE DA FARE
 
