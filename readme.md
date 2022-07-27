@@ -8,7 +8,7 @@ Questo è un manager di password stile terminale; in particolare, usa un prompt 
     in questo programma viene acceduto troppe volte il disco...il che è uno shifo.~~
 2. implementare una lista di RECORD. questo è il modo migliore per fare questo programma.
 
-3. finire la funzione di find nella lista record (implementare array di puntatori a record).
+3. finire la funzione di find nella lista record (implementare array di puntatori a record) (penso che sia finita).
 
 4. usare la funzione find per l'update di un elemento.
 
