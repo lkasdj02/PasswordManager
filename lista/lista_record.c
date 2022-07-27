@@ -36,17 +36,21 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
   int count = 0; 
   RECORD *current = head;
 
-  if (equals(s, VOID_STRING) && equals(a, VOID_STRING)) {
+  if (strcmp(s, VOID_STRING) == 0 && strcmp(a, VOID_STRING) == 0) {
     printf("sito non immesso, e-mail non immessa. impossibile trovare degli elementi validi con questi parametri.\n"); 
     return count;
-  }
-  else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING) == 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
+  } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING) == 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
 
-    printf("sito immesso, e-mail non immessa.\n"); 
+    printf("sito immesso: %s, e-mail immessa: %s.\n", s, a); 
 
     while(current != NULL) { 
-      if (strcmp(current->sito, s) == 0)
+      if (strcmp(current->sito, s) == 0) {
         count+=1; 
+        // riallocare la memoria di V
+        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * count); 
+        // aggiungere a V[count - 1] l'indirizzo appena trovato.
+        *(*V + (count - 1)) = current;
+      }
       current = current->next;
     }
     return count;
@@ -80,16 +84,16 @@ int push(RECORD **head, char *s, char *a, char *k) {
   return 1;
 }
 
-int update(char *s, char *a, char *new_k) {
+int update(RECORD **head, char *s, char *a, char *new_k) {
   // do something
   return 0;
 }
-int insert(char *s, char *a, char *k) { // inserimento in una posizione specifica
+int insert(RECORD **head,char *s, char *a, char *k) { // inserimento in una posizione specifica
   // do something
   return 0;
 }
 
-int delete(char *s, char *a, char *k) {
+int delete(RECORD **head, char *s, char *a, char *k) {
   // do something
   return 0;
 }

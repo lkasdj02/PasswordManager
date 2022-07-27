@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
   n2->next   = NULL;
 
   RECORD **array = (RECORD **)malloc(sizeof(RECORD *));
-  
 
   // PRINT TEST
   print(head);
@@ -48,11 +47,12 @@ int main(int argc, char *argv[]) {
   printf("\n");
   print(head);
   printf("\n");
-
   // FIND TEST
   char account_da_trovare[50] = "github.com";
-  char mail_da_trovare[50] = "leonardo.basso02@libero.it";
+  char mail_da_trovare[50] = " ";
 
   res = find(head, &array, account_da_trovare, mail_da_trovare);
   printf("numero di elementi trovati nella lista: %d.\n", res);
+  for (int i = 0; i < res; i += 1) 
+    printf("sito elemento: %s \t indirizzo %d esimo array: %p.\n", array[i]->sito, i, array[i]);
 }
