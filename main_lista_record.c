@@ -4,6 +4,7 @@
 #define COUNT_TEST "TESTING COUNT FUNCTION"
 #define FIND_TEST "TESTING FIND FUNCTION"
 #define UPDATE_TEST "TESTING UPDATE FUNCTION"
+#define DELETE_TEST "TESTING DELETE FUNCTION"
 
 void test_output(char *s);
 void color_line(char *s);
@@ -13,10 +14,6 @@ int main(int argc, char *argv[]) {
   // INIT TEST
   test_output(INIT_TEST);
   RECORD *head = init(argv[1], argv[2], argv[3], NULL);
-  RECORD *n1   = init(argv[1], argv[2], argv[3], NULL);
-  head->next = n1;
-  n1->next   = NULL;
-
   RECORD **array = NULL;
   
   // PRINT TEST
@@ -85,7 +82,7 @@ int main(int argc, char *argv[]) {
 
   // UPDATE TEST
   test_output(UPDATE_TEST);
-  char updated_password[50] = "puff_daddy_motherfucker";
+  char updated_password[50] = "nuova_password";
 
   res = update(&head, account_da_trovare, mail_da_trovare, updated_password);
   (res == 1) ?
@@ -96,6 +93,21 @@ int main(int argc, char *argv[]) {
   color_line(updated);
   print(head);
   printf("\n");
+  
+  // DELETE TEST
+  test_output(DELETE_TEST);
+  char sito_da_eliminare[50] = "github.com";
+  char mail_da_eliminare[50] = "leonardo.basso02@libero.it";
+
+  res = delete_one(&head, sito_da_eliminare, mail_da_eliminare);
+  (res == 1) ?
+      printf("lista non vuota.\n") :
+      printf("lista vuota\n");
+  color_line(updated);
+  print(head);
+  printf("\n");
+  
+
 }
 
 

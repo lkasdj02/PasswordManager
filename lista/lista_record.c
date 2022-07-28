@@ -117,12 +117,38 @@ int insert(RECORD **head,char *s, char *a, char *k) { // inserimento in una posi
   return 0;
 }
 
-int delete(RECORD **head, char *s, char *a, char *k) {
+int delete_one(RECORD **head, char *s, char *a) {
+  // funzione basilare per cancellare solamente un RECORD dalla lista.
+
+  RECORD *tmp = NULL;
+  if (*head == NULL) // caso in cui la lista sia vuota...controllo da fare in praticamente qualsiasi funzione.
+    return 0;
+  else {
+    if (strcmp((*head)->sito, s) == 0 && strcmp((*head)->mail, a) == 0) { // se il sito e la password matchano
+        tmp = *head;
+        *head = (*head)->next;
+        free(tmp);
+        return 1; // testa eliminata con successo.
+    }
+    for (RECORD *current = *head; current->next != NULL; current = current->next) {
+      if (strcmp(current->next->sito, s) == 0 && strcmp(current->next->mail, a) ==0) {// trovato l'elemento da eliminare.
+        // collegare i nodi
+        RECORD *tmp = current->next;
+        current->next = current->next->next;
+        free(tmp);
+        return 1; // eliminato il record con successo
+      }
+    }
+    return 0; // non ho trovato il record.
+  }
+}
+
+int delete_group(RECORD **head, char *s, char *a, char *k) {
   
   // dichiarazione e inizializzazione variabili principali. 
   RECORD **found_elements = NULL;
-  RECORD prec = *head; 
-  RECORD current = *head;
+  RECORD *prec = *head; 
+  RECORD *current = *head;
   int n_deleted_elements = 0;
   int n_found_elements = find(*head, &found_elements, s, a); 
 
