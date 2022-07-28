@@ -13,6 +13,7 @@ Questo è un manager di password stile terminale; in particolare, usa un prompt 
 4. ~~usare la funzione find per l'update di un elemento.~~
 
 5. ~~usare la funzione find per il delete di un elemento.~~
+
 5.1 si potrebbe implementare la funzione delete_some, la quale elimina in blocco una serie di password associate ad un sito o account specifico.
 
 6. ~~implementare la funzione free_memory per la funzione find.~~
