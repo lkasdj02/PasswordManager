@@ -118,8 +118,24 @@ int insert(RECORD **head,char *s, char *a, char *k) { // inserimento in una posi
 }
 
 int delete(RECORD **head, char *s, char *a, char *k) {
-  // do something
-  return 0;
+  
+  // dichiarazione e inizializzazione variabili principali. 
+  RECORD **found_elements = NULL;
+  RECORD prec = *head; 
+  RECORD current = *head;
+  int n_deleted_elements = 0;
+  int n_found_elements = find(*head, &found_elements, s, a); 
+
+  // LOGICA
+  if (n_found_elements == 0)
+    return 0;
+  else {
+    // usare i puntatori in found_elements per eliminare.
+    for (int i = 0; i < n_found_elements; i+=1) {
+      //printf("sito: %s\t account: %s\n", found_elements[i]->sito, found_elements[i]->mail);
+    }
+    return n_found_elements;
+  }
 }
 
 

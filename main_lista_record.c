@@ -14,13 +14,11 @@ int main(int argc, char *argv[]) {
   test_output(INIT_TEST);
   RECORD *head = init(argv[1], argv[2], argv[3], NULL);
   RECORD *n1   = init(argv[1], argv[2], argv[3], NULL);
-  RECORD *n2   = init(argv[1], argv[2], argv[3], NULL);
   head->next = n1;
-  n1->next   = n2;
-  n2->next   = NULL;
-  RECORD **array = NULL;
-  // RECORD **array = (RECORD **)malloc(sizeof(RECORD *));
+  n1->next   = NULL;
 
+  RECORD **array = NULL;
+  
   // PRINT TEST
   print(head);
   printf("\n");
