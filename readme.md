@@ -18,4 +18,4 @@ Questo è un manager di password stile terminale; in particolare, usa un prompt 
 
 6. ~~implementare la funzione free_memory per la funzione find.~~
 
-7. implementare la funzione free_memory per tutta la lista di RECORD.
+7. ~~implementare la funzione free_memory per tutta la lista di RECORD.~~

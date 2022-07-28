@@ -5,6 +5,7 @@
 #define FIND_TEST "TESTING FIND FUNCTION"
 #define UPDATE_TEST "TESTING UPDATE FUNCTION"
 #define DELETE_TEST "TESTING DELETE FUNCTION"
+#define FREE_TEST "TESTING FREE FUNCTION"
 
 void test_output(char *s);
 void color_line(char *s);
@@ -107,7 +108,10 @@ int main(int argc, char *argv[]) {
   print(head);
   printf("\n");
   
-
+  // FREE LIST TES
+  test_output(FREE_TEST);
+  res = free_list(&head);
+  (res == 1) ? printf("memoria deallocata con successo.\n") : printf("memoria NON deallocata con successo.\n");
 }
 
 

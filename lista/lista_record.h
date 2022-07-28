@@ -21,3 +21,4 @@ int insert(RECORD **head, char *s, char *a, char *k);
 int delete_one(RECORD **head, char *s, char *a);
 int delete_group(RECORD **head, char *s, char *a, char *k); 
 int update(RECORD **head, char *s, char *a, char *new_k);
+int free_list(RECORD **head);

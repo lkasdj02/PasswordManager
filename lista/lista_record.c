@@ -164,5 +164,19 @@ int delete_group(RECORD **head, char *s, char *a, char *k) {
   }
 }
 
+int free_list(RECORD **head) {
 
+  if (*head == NULL)
+    return 0;
 
+  RECORD *tmp = NULL;
+  RECORD *current = *head;
+
+  while (current != NULL) { 
+    tmp = current; 
+    current = current->next;
+    free(tmp);
+  }
+  *head = NULL;
+  return 1;
+}
