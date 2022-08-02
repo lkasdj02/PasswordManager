@@ -42,10 +42,12 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
 
   if (strcmp(s, VOID_STRING) == 0 && strcmp(a, VOID_STRING) == 0) {
     return count;
-  } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING) == 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
+  } else if (strcmp(s, VOID_STRING)>0 || strcmp(a, VOID_STRING) > 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
+
+    printf("sito immesso: %s, e-mail immessa: %s.\n", s, a); 
 
     while(current != NULL) { 
-      if (strcmp(current->sito, s) == 0) {
+      if (strcmp(current->sito, s) == 0 || strcmp(current->mail, a) == 0) {
         count+=1; 
         // riallocare la memoria di V
         *V = (RECORD **)realloc(*V, sizeof(RECORD *) * count); 
