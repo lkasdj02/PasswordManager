@@ -1,5 +1,5 @@
 #include "lista_record.h"
- 
+
 RECORD *init(char *s, char *a, char *k, RECORD *next) {
   RECORD *new_record = (RECORD *)malloc(sizeof(RECORD));
   strcpy(new_record->sito, s);
@@ -8,6 +8,7 @@ RECORD *init(char *s, char *a, char *k, RECORD *next) {
   new_record->next = next;
   return new_record;
 }
+
 
 int count(RECORD *head) {
   int count = 0;
@@ -66,6 +67,8 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
       }
       current = current->next;
     }
+    return count;
+  } else {
     return count;
   }
 }

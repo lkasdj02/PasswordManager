@@ -1,5 +1,5 @@
 #include "string_utils.h"
-#include <stdlib.h>
+//#include <stdlib.h>
 
 int len(char *s) {
 
