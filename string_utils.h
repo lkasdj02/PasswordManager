@@ -1,7 +1,7 @@
-// #include <stdio.h>
-// #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h> 
+#include <string.h>
 #define VOID_STRING " "
-
 
 int len(char *s);
 void copy(char *s, char *c);

@@ -1,7 +1,8 @@
-#include <stdlib.h>
-#include <string.h> 
-#include <stdio.h>
+// le tre direttive successive sono gia parte del file string_utils.h.
 #include "../string_utils.h"
+//#include <stdlib.h> 
+//#include <string.h> 
+//#include <stdio.h>
 
 typedef struct record {
     char sito[50];

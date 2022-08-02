@@ -1,4 +1,7 @@
 #include "lista_record.h"
+//#include <stdio.h>
+//#include <stdlib.h>
+////////////////#include <string.h>
 
 RECORD *init(char *s, char *a, char *k, RECORD *next) {
   RECORD *new_record = (RECORD *)malloc(sizeof(RECORD));
