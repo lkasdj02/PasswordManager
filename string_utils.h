@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h> 
 #include <string.h>
+#define MAX_LENGTH 255
 #define VOID_STRING " "
+#define SPACE ' ' 
 
 int len(char *s);
 void copy(char *s, char *c);

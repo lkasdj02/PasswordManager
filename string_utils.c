@@ -1,4 +1,8 @@
 #include "string_utils.h"
+#define MAX_LENGTH 255
+#define VOID_STRING " "
+#define SPACE ' ' 
+
 //#include <stdlib.h>
 
 int len(char *s) {
@@ -52,6 +56,9 @@ int equals(char *s1, char *s2) {
     // POST: la funzione ritorna 1 se le due stringhe sono uguali
     // 0 altrimenti.
     
+    //printf("equals function : %s %s\n", s1, s2);
+    //printf("equals function : %d %d\n", len(s1), len(s2));
+  
     if (len(s1) != len(s2)) {
         return 0;
     }
@@ -83,7 +90,7 @@ int split(char *s, char split, char ***puntatore) {
     // questo sono accedibili alla funzione chiamante mediante puntatore a puntatore.
     
     // BUFFER
-    char buffer[255]; 
+    char buffer[MAX_LENGTH]; 
     int buffer_count = 0;
     
     // VARIABILI UTILI AL PROCESSO DI SPLITTING
@@ -98,7 +105,7 @@ int split(char *s, char split, char ***puntatore) {
         }
     } 
     string_count = char_count + 1;
-    printf("string count: %d\n\n", string_count); // DEBUG
+    //printf("string count: %d\n\n", string_count); // DEBUG
      
     // dichiarazione di un array di puntatori locale.
     char *words[string_count];
@@ -106,12 +113,12 @@ int split(char *s, char split, char ***puntatore) {
     string_count = 0; // reinizializzazione per poter copiare i puntatori nell'array di puntatori denominato words.
     
     for(int i = 0; i < len(s); i += 1) {
-        if (s[i] == split) // CAARATTERE DI SPLIT
+        if (s[i] == split) // CARATTERE DI SPLIT
         {
-            buffer[i] = '\0'; // inizializzare ultimo elemento come fine riga.
+            buffer[buffer_count] = '\0'; // inizializzare ultimo elemento come fine riga.
             char *p = (char *)malloc(sizeof(char) * len(buffer)); 
             // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
-
+            printf("%s\n", buffer);
             copy(p, buffer); 
             //strcpy(p, buffer); // copia della stringa la stringa.
             words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
@@ -122,7 +129,7 @@ int split(char *s, char split, char ***puntatore) {
         else
         {
             buffer[buffer_count++] = s[i];
-            printf("%c\n", buffer[buffer_count - 1]);
+            //printf("%c", buffer[buffer_count - 1]);
             if (i == (len(s) - 1)) // caso in cui siamo al carattere finale.
             {  
                 buffer[buffer_count] = '\0';
@@ -137,11 +144,11 @@ int split(char *s, char split, char ***puntatore) {
     }
 
     // DEBUG 
-    for (int i = 0; i < string_count; i += 1)
-        printf("stringa words in posizione %d: %s; \t indirizzo nella heap: %p.\n", i, words[i], words[i]);
+    //for (int i = 0; i < string_count; i += 1)
+    //  printf("stringa words in posizione %d: %s; indirizzo nella heap: %p.\n", i, words[i], words[i]);
 
     for (int i = 0; i < string_count; i += 1) {
-        *((*puntatore) + i) = words[i];
+      *((*puntatore) + i) = words[i];
         //printf("stringa words in posizione %d: %s; \t indirizzo nella heap: %p.\n", i, array_puntatori[i], array_puntatori[i]);
     } 
     return string_count;
