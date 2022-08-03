@@ -2,11 +2,11 @@
 
 
 void draw_menu() {
-  printf(" PASSWORD MANAGER ");
+  printf(" ---------------PASSWORD MANAGER----------------- \n");
 }
 
-void draw_prompt() {
-  printf("$-> ");
+void draw_prompt(char *prompt) {
+  color_line(prompt);
 }
 
 void color_line(char *s) {

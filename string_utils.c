@@ -11,8 +11,10 @@ int len(char *s) {
     // POST: la funzione ritorna la lunghezza di una parola.
     
     int counter = 0;
-    while (*(s + counter) != '\0') 
-        counter += 1;
+    while (s[counter] != '\0' && s[counter] != 10) {
+      // printf("%d ", s[counter]); DEBUG
+      counter+=1;
+    }
     return counter;
 }
 
@@ -82,6 +84,8 @@ void clear_string(char *s, int len) {
 
 int split(char *s, char split, char ***puntatore) {
     
+    if (len(s) == 0)
+      return 0;
     // PRE: s è un puntatore ad un array di caratteri, split è il carattere separatore e 
     // puntatore è il riferimento (indirizzo) ad un puntatore a puntatore.
     
@@ -112,6 +116,8 @@ int split(char *s, char split, char ***puntatore) {
     *puntatore = malloc(sizeof(char *) * string_count);
     string_count = 0; // reinizializzazione per poter copiare i puntatori nell'array di puntatori denominato words.
     
+    printf("lunghezza di s: %d.\n", len(s));
+
     for(int i = 0; i < len(s); i += 1) {
         if (s[i] == split) // CARATTERE DI SPLIT
         {
@@ -119,8 +125,8 @@ int split(char *s, char split, char ***puntatore) {
             char *p = (char *)malloc(sizeof(char) * len(buffer)); 
             // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
             printf("%s\n", buffer);
-            copy(p, buffer); 
-            //strcpy(p, buffer); // copia della stringa la stringa.
+            //copy(p, buffer); 
+            strcpy(p, buffer); // copia della stringa la stringa.
             words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
             
             clear_string(buffer, buffer_count); // "ripulire" il contenuto del buffer. 
@@ -136,8 +142,9 @@ int split(char *s, char split, char ***puntatore) {
                 char *p = (char *)malloc(sizeof(char) * len(buffer)); 
                 // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
 
-                copy(p, buffer);
-                //strcpy(p, buffer); // copia della stringa la stringa.
+                printf("%s\n", buffer);
+                //copy(p, buffer);
+                strcpy(p, buffer); // copia della stringa la stringa.
                 words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
             }
         } 
@@ -151,6 +158,10 @@ int split(char *s, char split, char ***puntatore) {
       *((*puntatore) + i) = words[i];
         //printf("stringa words in posizione %d: %s; \t indirizzo nella heap: %p.\n", i, array_puntatori[i], array_puntatori[i]);
     } 
+    //for (int i = 0; i < string_count; i += 1)
+    //  printf("stringa words in posizione %d: %s; indirizzo nella heap: %p.\n", i, (*puntatore)[i], (*puntatore)[i]);
+
+
     return string_count;
 }
 

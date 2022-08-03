@@ -5,6 +5,9 @@
 #define VOID_STRING " "
 #define SPACE ' ' 
 
+// PRE: s è un puntatore ad un array di caratteri
+// POST: la funzione ritorna la lunghezza di una parola.
+// (per lunghezza si intende il numero di caratteri escluso il new line feed)
 int len(char *s);
 void copy(char *s, char *c);
 int replace(char *s, int pos, char replacement);
