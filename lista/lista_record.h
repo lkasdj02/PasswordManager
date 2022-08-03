@@ -33,10 +33,22 @@ int free_find(RECORD ***V);
 // POST: la funzione ritorna 1 se l'inserimento va a buon fine.
 int push(RECORD **head, char *s, char *a, char *k);
 int insert(RECORD **head, char *s, char *a, char *k);
-
+// PRE: *head: puntatore a RECORD
+// *s: puntatore a char.
+// *a: puntatore a char.
+// POST: la funzione ritorna 1 in caso siano stati trovati record corrispondenti
+// ai parametri s o a, 0 altrimenti; in questo caso vengono eliminati
+// la funzione ritorna 0 altrimenti.
 int delete_one(RECORD **head, char *s, char *a);
 // NON ANCORA IMPLEMENTATA
 int delete_group(RECORD **head, char *s, char *a, char *k); 
+// PRE: *head: puntatore a RECORD
+// *s: puntatore a char.
+// *a: puntatore a char.
+// *new_k: puntatore a char (nuova password da immetterere).
+// POST: la funzione ritorna 1 in caso siano stati trovati record corrispondenti
+// ai parametri s o a, 0 altrimenti; in questo caso vengono aggiornati 
+// la funzione ritorna 0 altrimenti.
 int update(RECORD **head, char *s, char *a, char *new_k);
 // PRE: **head: puntatore a puntatore a RECORD.
 // POST: la funzione dealloca la memoria allocata per la lista di RECORD.

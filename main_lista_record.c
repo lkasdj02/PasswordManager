@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   
   // INIT TEST
   test_output(INIT_TEST);
-  RECORD *head = init(argv[1], argv[2], argv[3], NULL);
+  RECORD *head = init("github.com", "leonardo.basso02@gmail.com", "Bale2002.", NULL);
   RECORD **array = NULL;
   
   // PRINT TEST
@@ -37,18 +37,20 @@ int main(int argc, char *argv[]) {
   */
   
   // PUSH TEST
-  test_output(PUSH_TEST);
-  char nuovo_account[50] = "github.com";
-  char nuovo_mail[50] = "leonardo.basso02@libero.it";
-  char nuovo_password[50] = "lkasdj02";
-  
-  char nuovo_account2[50] = "gmail.com";
-  char nuovo_mail2[50] = "leonardo.basso02@outlook.it";
-  char nuovo_password2[50] = "abracadabra";
 
+  test_output(PUSH_TEST);
+  //char nuovo_account[50] = "github.com";
+  //char nuovo_mail[50] = "leonardo.basso02@libero.it";
+  //char nuovo_password[50] = "lkasdj02";
+  
+  //char nuovo_account2[50] = "gmail.com";
+  //char nuovo_mail2[50] = "leonardo.basso02@outlook.it";
+  //char nuovo_password2[50] = "abracadabra";
+  //
   int res = 0;
-  res += push(&head, nuovo_account, nuovo_mail, nuovo_password);
-  res += push(&head, nuovo_account2, nuovo_mail2, nuovo_password2);
+  res += push(&head, "github.com", "leonardo.basso02@libero.it", "lkasdj02");
+  res += push(&head, "gmail.com", "leonardo.basso02@outlook.it", "abracadabra");
+  res += push(&head, "google.com", "leonardo.basso02@libero.it", "lollo");
 
   (res == 1) ?
     printf("numero di elementi inseriti nella lista: %d.\n", res) :
@@ -60,10 +62,10 @@ int main(int argc, char *argv[]) {
   
   // FIND TEST
   test_output(FIND_TEST);
-  char account_da_trovare[50] = "github.com";
-  char mail_da_trovare[50] = "leonardo.basso02@gmail.com";
+  char account_da_trovare[50] = " ";
+  char mail_da_trovare[50] = "leonardo.basso02@libero.it";
 
-  res = find(head, &array, account_da_trovare, mail_da_trovare);
+  res = find(head, &array, " ", "leonardo.basso02@libero.it");
   printf("numero di elementi trovati nella lista: %d.\n", res);
   if (count > 0) {
     for (int i = 0; i < res; i += 1) {
@@ -85,7 +87,7 @@ int main(int argc, char *argv[]) {
   test_output(UPDATE_TEST);
   char updated_password[50] = "nuova_password";
 
-  res = update(&head, account_da_trovare, mail_da_trovare, updated_password);
+  res = update(&head, "github.com", "leonardo.basso02@gmail.com", updated_password);
   (res == 1) ?
       printf("trovato un elemento.\n") :
       printf("trovati %d tanti elementi.\n", res);
@@ -97,10 +99,8 @@ int main(int argc, char *argv[]) {
   
   // DELETE TEST
   test_output(DELETE_TEST);
-  char sito_da_eliminare[50] = "github.com";
-  char mail_da_eliminare[50] = "leonardo.basso02@libero.it";
-
-  res = delete_one(&head, sito_da_eliminare, mail_da_eliminare);
+  res = delete_one(&head, "google.com", "leonardo.basso02@libero.it");
+  res = delete_one(&head, "github.com", "leonardo.basso02@gmail.com");
   (res == 1) ?
       printf("lista non vuota.\n") :
       printf("lista vuota\n");

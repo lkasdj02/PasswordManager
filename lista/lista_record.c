@@ -1,4 +1,5 @@
 #include "lista_record.h"
+#include <stdio.h>
 //#include <stdio.h>
 //#include <stdlib.h>
 ////////////////#include <string.h>
@@ -14,11 +15,14 @@ RECORD *init(char *s, char *a, char *k, RECORD *next) {
 
 
 int count(RECORD *head) {
-  int count = 0;
-  RECORD *current = head;
+  
+  // controllo obbligatorio
   if (head == NULL)
     return 0;
-
+  
+  // dichiarazione variabili
+  int count = 0;
+  RECORD *current = head;
   while(current != NULL) { 
     count+=1; 
     current = current->next;
@@ -27,6 +31,9 @@ int count(RECORD *head) {
 }
 
 void print(RECORD *head) {
+  if (head == NULL)
+    return;
+
   RECORD *current = head;
   while(current != NULL) {
     printf("sito: %s \t mail: %s \t password: %s \t indirizzo heap: %p.\n", current->sito, current->mail, current->password, current);
@@ -36,12 +43,33 @@ void print(RECORD *head) {
 
 int find(RECORD *head, RECORD ***V, char *s, char *a) {
   
+  // controllo obbligatorio
+  if (head == NULL)
+    return 0;
+
   // dichiarazione variabili
   int count = 0; 
   RECORD *current = head;
 
   if (strcmp(s, VOID_STRING) == 0 && strcmp(a, VOID_STRING) == 0) {
     return count;
+  } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING) > 0) { // tutte e due sono immessi.
+
+    printf("sito immesso: %s, e-mail immessa: %s.\n", s, a); 
+
+    while(current != NULL) { 
+      if (strcmp(current->sito, s) == 0 && strcmp(current->mail, a) == 0) {
+        count+=1; 
+        // riallocare la memoria di V
+        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * count); 
+        // aggiungere a V[count - 1] l'indirizzo appena trovato.
+        *(*V + (count - 1)) = current;
+      }
+      current = current->next;
+    }
+    //printf("numero elementi trovati: %d\n", count);
+    return count;
+
   } else if (strcmp(s, VOID_STRING)>0 || strcmp(a, VOID_STRING) > 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
 
     printf("sito immesso: %s, e-mail immessa: %s.\n", s, a); 
@@ -56,6 +84,7 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
       }
       current = current->next;
     }
+    //printf("numero elementi trovati: %d\n", count);
     return count;
 
   } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING)>0) {
@@ -79,11 +108,14 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
 }
 
 int free_find(RECORD ***V) {
+  if(*V == NULL)
+    return 0;
   free((*V)); // deallocare la zona di memoria puntata dal puntatore ai puntatori.
   return 1;
 }
 
 int push(RECORD **head, char *s, char *a, char *k) {
+  
   // creazione di un nuovo record all'interno della memoria HEAP.
   RECORD *new_node = init(s, a, k, NULL);
   RECORD *current = *head;
@@ -131,6 +163,7 @@ int delete_one(RECORD **head, char *s, char *a) {
   RECORD *tmp = NULL;
   if (*head == NULL) // caso in cui la lista sia vuota...controllo da fare in praticamente qualsiasi funzione.
     return 0;
+
   else {
     if (strcmp((*head)->sito, s) == 0 && strcmp((*head)->mail, a) == 0) { // se il sito e la password matchano
         tmp = *head;
