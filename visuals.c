@@ -6,7 +6,7 @@ void draw_menu() {
 }
 
 void draw_prompt() {
-  printf("$->");
+  printf("$-> ");
 }
 
 void color_line(char *s) {
