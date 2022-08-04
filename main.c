@@ -1,5 +1,6 @@
 #include "new_file_manager.h"
 #include "visuals.h"
+#include <stdio.h>
 #include <string.h>
 //#include "string_utils.h"
 //#include "string_utils.h"
@@ -35,6 +36,7 @@ int main() {
   RECORD *head = NULL; // primo elemento della lista di RECORD
   RECORD **array_records = NULL; 
   FILE *stream = NULL; // puntatore a struttura file che serve per la deserializzazione.
+  
   // VISUAL SETUP INIZIALE.
   clear_screen();  
   draw_menu();
@@ -42,6 +44,7 @@ int main() {
   // DESERIALIZZAZIONE DELLA LISTA
   read(stream, &head, path);
   print(head);
+
   // loop con guardia la variabile running dichiarata precedentemente. 
   while(running != 0) { // while fino a quando non arriva il comando EXIT.
     // command input
@@ -53,7 +56,7 @@ int main() {
     if (number_of_words > 0 && number_of_words <= 4) { // se il numero di parole rientra nei canoni specificati dai comandi
       for (int i = 0; i < number_of_words; i += 1) { // obbligatorio.
         to_lowercase(puntatore_parole[i]);
-        printf("stringa immessa: %s \t lunghezza stringa: %d\n", puntatore_parole[i], len(puntatore_parole[i])); // debug
+        //printf("stringa immessa: %s \t lunghezza stringa: %d\n", puntatore_parole[i], len(puntatore_parole[i])); // debug
       } 
       
       if (equals(puntatore_parole[0], comandi[0])) // EXIT
@@ -64,14 +67,21 @@ int main() {
 
         if (equals(puntatore_parole[0], comandi[2])) { // SHOW
           printf("inserito show\n");
-          for (int i = 0; i < number_of_words - 1; i+=1) {
-            strcpy(inputs[i], puntatore_parole[i + 1]);
+          if (strcmp(puntatore_parole[1], "*") == 0)
+            print(head);
+          else {
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], puntatore_parole[i + 1]);
+
+            found_records = find(head, &array_records, nome_sito, nome_account);
+            if (found_records > 0) {
+              for (int i = 0; i < found_records; i += 1) 
+                printf("record trovato: %s \t %s \t %s\n", array_records[i]->sito, array_records[i]->mail, array_records[i]->password);
+            } else {
+              printf("nessun record trovato");
+            }
+            free_find(&array_records);
           }
-          found_records = find(head, &array_records, nome_sito, nome_account);
-          for (int i = 0; i < found_records; i += 1) {
-            printf("record trovato: %s \t %s \t %s\n", array_records[i]->sito, array_records[i]->mail, array_records[i]->password);
-          }
-          free_find(&array_records);
         }
         else if (equals(puntatore_parole[0], comandi[3])) { // INSERT
           printf("inserito insert\n");

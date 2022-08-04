@@ -1,5 +1,6 @@
 #include "lista_record.h"
 #include <stdio.h>
+#include <string.h>
 //#include <stdio.h>
 //#include <stdlib.h>
 ////////////////#include <string.h>
@@ -48,27 +49,27 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
     return 0;
 
   // dichiarazione variabili
-  int count = 0; 
+  int c = 0; 
   RECORD *current = head;
 
   if (strcmp(s, VOID_STRING) == 0 && strcmp(a, VOID_STRING) == 0) {
-    return count;
+    return c;
   } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING) > 0) { // tutte e due sono immessi.
 
     printf("sito immesso: %s, e-mail immessa: %s.\n", s, a); 
 
     while(current != NULL) { 
       if (strcmp(current->sito, s) == 0 && strcmp(current->mail, a) == 0) {
-        count+=1; 
+        c+=1; 
         // riallocare la memoria di V
-        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * count); 
+        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * c); 
         // aggiungere a V[count - 1] l'indirizzo appena trovato.
-        *(*V + (count - 1)) = current;
+        *(*V + (c - 1)) = current;
       }
       current = current->next;
     }
     //printf("numero elementi trovati: %d\n", count);
-    return count;
+    return c;
 
   } else if (strcmp(s, VOID_STRING)>0 || strcmp(a, VOID_STRING) > 0) { // selezionare tutti gli elementi con lo stesso nome di dominio.
 
@@ -76,16 +77,16 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
 
     while(current != NULL) { 
       if (strcmp(current->sito, s) == 0 || strcmp(current->mail, a) == 0) {
-        count+=1; 
+        c+=1; 
         // riallocare la memoria di V
-        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * count); 
+        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * c); 
         // aggiungere a V[count - 1] l'indirizzo appena trovato.
-        *(*V + (count - 1)) = current;
+        *(*V + (c - 1)) = current;
       }
       current = current->next;
     }
     //printf("numero elementi trovati: %d\n", count);
-    return count;
+    return c;
 
   } else if (strcmp(s, VOID_STRING)>0 && strcmp(a, VOID_STRING)>0) {
 
@@ -93,17 +94,17 @@ int find(RECORD *head, RECORD ***V, char *s, char *a) {
 
     while(current != NULL) { 
       if (strcmp(s, current->sito) == 0 && strcmp(a, current->mail) == 0) {
-        count+=1; 
+        c+=1; 
 
-        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * count); 
+        *V = (RECORD **)realloc(*V, sizeof(RECORD *) * c); 
         // aggiungere a V[count - 1] l'indirizzo appena trovato.
-        *(*V + (count - 1)) = current;       
+        *(*V + (c - 1)) = current;       
       }
       current = current->next;
     }
-    return count;
+    return c;
   } else {
-    return count;
+    return c;
   }
 }
 
