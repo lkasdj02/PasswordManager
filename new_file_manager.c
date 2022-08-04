@@ -30,7 +30,7 @@ int read(FILE *in, RECORD **start, char *path) {
   int read_records = 0;
   in = fopen(path, "rb+");
   int tot_records_in_file = count_records(in, path, "rb+");
-  printf("numero record: %d\n", tot_records_in_file); // DEBUG
+  // printf("numero record: %d\n", tot_records_in_file); // DEBUG
   if (in == NULL || path == NULL) 
     return 0;
 

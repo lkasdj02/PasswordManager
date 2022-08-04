@@ -5,7 +5,7 @@
 //#include "string_utils.h"
 //#include "lista/lista_record.h"
 
-
+char path[15] = "esempio.dat";
 char command[MAX_LENGTH];
 char **puntatore_parole;
 char *comandi[] = {
@@ -24,16 +24,24 @@ char nome_sito[50] = " ";
 char nome_account[50] = " ";
 char nome_password[50] = " ";
 
+// array di input per facilitare l'assegnazione alle variabili precedenti
+// i valoi immessi da terminale.
+char *inputs[3] = {nome_sito, nome_account, nome_password};  
 
 int main() {
   int running = 1; // flag che controlla l'andamento del programma.
   int number_of_words = 0; // numero di parole ottenute dalla funzione split.
+  int found_records = 0; // numero di record trovati dalla find.
   RECORD *head = NULL; // primo elemento della lista di RECORD
-  
-  // visual setup iniziale.
+  RECORD **array_records = NULL; 
+  FILE *stream = NULL; // puntatore a struttura file che serve per la deserializzazione.
+  // VISUAL SETUP INIZIALE.
   clear_screen();  
   draw_menu();
-
+   
+  // DESERIALIZZAZIONE DELLA LISTA
+  read(stream, &head, path);
+  print(head);
   // loop con guardia la variabile running dichiarata precedentemente. 
   while(running != 0) { // while fino a quando non arriva il comando EXIT.
     // command input
@@ -53,8 +61,17 @@ int main() {
       else if (equals(puntatore_parole[0], comandi[1])) // CLEAR
         clear_screen();
       else { // ACTIONS
+
         if (equals(puntatore_parole[0], comandi[2])) { // SHOW
           printf("inserito show\n");
+          for (int i = 0; i < number_of_words - 1; i+=1) {
+            strcpy(inputs[i], puntatore_parole[i + 1]);
+          }
+          found_records = find(head, &array_records, nome_sito, nome_account);
+          for (int i = 0; i < found_records; i += 1) {
+            printf("record trovato: %s \t %s \t %s\n", array_records[i]->sito, array_records[i]->mail, array_records[i]->password);
+          }
+          free_find(&array_records);
         }
         else if (equals(puntatore_parole[0], comandi[3])) { // INSERT
           printf("inserito insert\n");
@@ -72,6 +89,9 @@ int main() {
       printf("inserire un valore corretto"); 
     }
   }
+  // SCRITTURA DELLA LISTA NEL FILE 
+  write(stream, &head, path);
   // quando il programma finisce queste risorse devono essere deallocate.
   free_split(&puntatore_parole, number_of_words);
+  free_list(&head);
 }

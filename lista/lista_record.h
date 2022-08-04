@@ -13,7 +13,6 @@ typedef struct record {
 
 
 RECORD *init(char *s, char *a, char *k, RECORD *next);
-
 // PRE: head corrisponde ad un puntatore ad un nodo della lista.
 // POST: la funzione ritorna il numero di RECORD presenti all'interno della lista di RECORD.
 int count(RECORD *head);
