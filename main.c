@@ -71,7 +71,8 @@ int main() {
             print(head);
           else {
             for (int i = 0; i < number_of_words - 1; i+=1)  
-              strcpy(inputs[i], puntatore_parole[i + 1]);
+              if (!(strcmp(puntatore_parole[i + 1], "none") == 0))  // flag da terinale per indicare che non si vuole cercare un parametro.
+                strcpy(inputs[i], puntatore_parole[i + 1]);
 
             found_records = find(head, &array_records, nome_sito, nome_account);
             if (found_records > 0) {
@@ -80,11 +81,23 @@ int main() {
             } else {
               printf("nessun record trovato");
             }
+            // free the inputs
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], " ");
             free_find(&array_records);
           }
         }
         else if (equals(puntatore_parole[0], comandi[3])) { // INSERT
           printf("inserito insert\n");
+          if (number_of_words < 4)
+            printf("sono stati inseriti troppi pochi parametri");        
+          else {
+            // copia delle stringhe immesse all'intero dell'array input. 
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], puntatore_parole[i + 1]);
+            // inserimento di un record alla fine della coda.
+            insert(&head, inputs[0], inputs[1], inputs[2]);
+          }
         }
         else if (equals(puntatore_parole[0], comandi[4])) { // UPDATE
           printf("inserito update\n");
