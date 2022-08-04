@@ -24,3 +24,6 @@ Questo è un manager di password stile terminale; in particolare, usa un prompt 
 
     8.1 ~~la funzione di serializzazione dei RECORD (write).~~
     8.2 ~~la funzione di de - serializzazione dei RECORD (read).~~
+9. implementare il main.
+
+    9.1 implementare le funzioni della lista in corrispondenza dell'input dell'utente.
