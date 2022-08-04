@@ -116,7 +116,7 @@ int split(char *s, char split, char ***puntatore) {
     *puntatore = malloc(sizeof(char *) * string_count);
     string_count = 0; // reinizializzazione per poter copiare i puntatori nell'array di puntatori denominato words.
     
-    printf("lunghezza di s: %d.\n", len(s));
+    // printf("lunghezza di s: %d.\n", len(s));
 
     for(int i = 0; i < len(s); i += 1) {
         if (s[i] == split) // CARATTERE DI SPLIT
@@ -124,7 +124,7 @@ int split(char *s, char split, char ***puntatore) {
             buffer[buffer_count] = '\0'; // inizializzare ultimo elemento come fine riga.
             char *p = (char *)malloc(sizeof(char) * len(buffer)); 
             // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
-            printf("%s\n", buffer);
+            // printf("%s\n", buffer); // DEBUG
             //copy(p, buffer); 
             strcpy(p, buffer); // copia della stringa la stringa.
             words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
@@ -142,7 +142,7 @@ int split(char *s, char split, char ***puntatore) {
                 char *p = (char *)malloc(sizeof(char) * len(buffer)); 
                 // array_puntatori[string_count] = p; // mettere il puntatore all'interno dell'array degli indirizzi.
 
-                printf("%s\n", buffer);
+                // printf("%s\n", buffer); // DEBUG
                 //copy(p, buffer);
                 strcpy(p, buffer); // copia della stringa la stringa.
                 words[string_count++] = p; // posizione corrente di words va assegnata al puntatore appena creato.
