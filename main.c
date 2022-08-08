@@ -109,7 +109,6 @@ int main() {
               int n_record_inseriti = push(&head, inputs[0], inputs[1], inputs[2]);
               printf("numero record inseriti: %d\n", n_record_inseriti);
             }
-
             // clean input.
             for (int i = 0; i < number_of_words - 1; i+=1)  
               strcpy(inputs[i], " ");
@@ -117,6 +116,28 @@ int main() {
         }
         else if (equals(puntatore_parole[0], comandi[4])) { // UPDATE
           printf("inserito update\n");
+          if (number_of_words < 4) {
+            printf("ATTENZIONE: sono stati inseriti troppi pochi argomenti.\n");
+          } else {
+          
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], puntatore_parole[i + 1]);
+              
+            found_records = find(head, &array_records, inputs[0], inputs[1]);
+            free_find(&array_records); // possiamo deallocare la memoria sin da subito dato che alla fine ci serve solamente il numero di record.
+
+            if (found_records <= 0)
+              printf("ATTENZIONE: non sono stati trovati record da aggiornare;\n si prega di reinserire dei dati validi.\n");
+            else {
+              // inserimento di un record alla fine della coda.
+              int n_record_aggiornati = update(&head, inputs[0], inputs[1], inputs[2]);
+              printf("numero record aggiornati: %d\n", n_record_aggiornati);
+            }
+
+            // clean input.
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], " ");
+          }
         }
         else if (equals(puntatore_parole[0], comandi[5])) { // DELETE
           printf("inserito delete\n");
