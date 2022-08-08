@@ -17,6 +17,7 @@ char *comandi[] = {
   "update",
   "delete",
 };
+
 char prompt[10] = "$-> "; 
 
 // array per ospitare i parametri da passare i valori da passare
@@ -47,13 +48,15 @@ int main() {
 
   // loop con guardia la variabile running dichiarata precedentemente. 
   while(running != 0) { // while fino a quando non arriva il comando EXIT.
-    // command input
+    // COMMAND INPUT
     draw_prompt(prompt);
     fgets(command, MAX_LENGTH, stdin);
     number_of_words = split(command, SPACE, &puntatore_parole); 
 
     // printf("numero parole: %d\n", number_of_words);
     if (number_of_words > 0 && number_of_words <= 4) { // se il numero di parole rientra nei canoni specificati dai comandi
+      
+      // RENDERE TUTTI GLI INPUT DA TASTIERA MINUSCOLI PER I CONFRONTI
       for (int i = 0; i < number_of_words; i += 1) { // obbligatorio.
         to_lowercase(puntatore_parole[i]);
         //printf("stringa immessa: %s \t lunghezza stringa: %d\n", puntatore_parole[i], len(puntatore_parole[i])); // debug
@@ -79,24 +82,37 @@ int main() {
               for (int i = 0; i < found_records; i += 1) 
                 printf("record trovato: %s \t %s \t %s\n", array_records[i]->sito, array_records[i]->mail, array_records[i]->password);
             } else {
-              printf("nessun record trovato");
+              printf("Nessun record trovato.\n");
             }
-            // free the inputs
+            // clean the inputs
             for (int i = 0; i < number_of_words - 1; i+=1)  
               strcpy(inputs[i], " ");
             free_find(&array_records);
           }
         }
         else if (equals(puntatore_parole[0], comandi[3])) { // INSERT
-          printf("inserito insert\n");
-          if (number_of_words < 4)
-            printf("sono stati inseriti troppi pochi parametri");        
-          else {
-            // copia delle stringhe immesse all'intero dell'array input. 
+          printf("inserito insert\n"); // copia delle stringhe immesse all'intero dell'array input. 
+          if (number_of_words < 4) {
+            printf("ATTENZIONE: sono stati inseriti troppi pochi argomenti.\n");
+          } else {
+          
             for (int i = 0; i < number_of_words - 1; i+=1)  
               strcpy(inputs[i], puntatore_parole[i + 1]);
-            // inserimento di un record alla fine della coda.
-            insert(&head, inputs[0], inputs[1], inputs[2]);
+              
+            found_records = find(head, &array_records, inputs[0], inputs[1]);
+            free_find(&array_records); // possiamo deallocare la memoria sin da subito dato che alla fine ci serve solamente il numero di record.
+
+            if (found_records > 0)
+              printf("ATTENZIONE: sono stati trovati altri record con lo stesso dominio e account;\n si prega di reinserire dei dati validi.\n");
+            else {
+              // inserimento di un record alla fine della coda.
+              int n_record_inseriti = push(&head, inputs[0], inputs[1], inputs[2]);
+              printf("numero record inseriti: %d\n", n_record_inseriti);
+            }
+
+            // clean input.
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], " ");
           }
         }
         else if (equals(puntatore_parole[0], comandi[4])) { // UPDATE
