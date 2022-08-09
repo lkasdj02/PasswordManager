@@ -26,4 +26,7 @@ Questo è un manager di password stile terminale; in particolare, usa un prompt 
     8.2 ~~la funzione di de - serializzazione dei RECORD (read).~~
 9. implementare il main.
 
-    9.1 implementare le funzioni della lista in corrispondenza dell'input dell'utente.
+    9.1 ~~implementare le funzioni della lista in corrispondenza dell'input dell'utente.~~
+
+    9.2 rivedere la grafica del programma e fare il refactoring del main.
+    

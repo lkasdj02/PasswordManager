@@ -34,6 +34,7 @@ int main() {
   int running = 1; // flag che controlla l'andamento del programma.
   int number_of_words = 0; // numero di parole ottenute dalla funzione split.
   int found_records = 0; // numero di record trovati dalla find.
+  int operation_result = 0;
   RECORD *head = NULL; // primo elemento della lista di RECORD
   RECORD **array_records = NULL; 
   FILE *stream = NULL; // puntatore a struttura file che serve per la deserializzazione.
@@ -106,8 +107,8 @@ int main() {
               printf("ATTENZIONE: sono stati trovati altri record con lo stesso dominio e account;\n si prega di reinserire dei dati validi.\n");
             else {
               // inserimento di un record alla fine della coda.
-              int n_record_inseriti = push(&head, inputs[0], inputs[1], inputs[2]);
-              printf("numero record inseriti: %d\n", n_record_inseriti);
+              operation_result = push(&head, inputs[0], inputs[1], inputs[2]);
+              printf("numero record inseriti: %d\n", operation_result);
             }
             // clean input.
             for (int i = 0; i < number_of_words - 1; i+=1)  
@@ -130,8 +131,8 @@ int main() {
               printf("ATTENZIONE: non sono stati trovati record da aggiornare;\n si prega di reinserire dei dati validi.\n");
             else {
               // inserimento di un record alla fine della coda.
-              int n_record_aggiornati = update(&head, inputs[0], inputs[1], inputs[2]);
-              printf("numero record aggiornati: %d\n", n_record_aggiornati);
+              operation_result = update(&head, inputs[0], inputs[1], inputs[2]);
+              printf("numero record aggiornati: %d\n", operation_result);
             }
 
             // clean input.
@@ -154,8 +155,8 @@ int main() {
             if (found_records <= 0) {
               printf("ATTENZIONE: non sono stati trovati record con lo stesso dominio e account;\n si prega di reinserire dei dati validi.\n");
             } else {
-              int n_record_eliminati = delete_one(&head, inputs[0], inputs[1]);
-              printf("numero record eliminati: %d\n", n_record_eliminati);
+              operation_result = delete_one(&head, inputs[0], inputs[1]);
+              printf("numero record eliminati: %d\n", operation_result);
             }
 
             // clear the inputs
