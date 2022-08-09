@@ -84,7 +84,7 @@ int main() {
             } else {
               printf("Nessun record trovato.\n");
             }
-            // clean the inputs
+            // clear the inputs
             for (int i = 0; i < number_of_words - 1; i+=1)  
               strcpy(inputs[i], " ");
             free_find(&array_records);
@@ -141,6 +141,27 @@ int main() {
         }
         else if (equals(puntatore_parole[0], comandi[5])) { // DELETE
           printf("inserito delete\n");
+          if (number_of_words < 3) {
+            printf("la funzione DELETE_GROUP deve essere ancora implementata");
+          } else {
+
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], puntatore_parole[i + 1]);
+            
+            found_records = find(head, &array_records, inputs[0], inputs[1]);
+            free_find(&array_records); 
+
+            if (found_records <= 0) {
+              printf("ATTENZIONE: non sono stati trovati record con lo stesso dominio e account;\n si prega di reinserire dei dati validi.\n");
+            } else {
+              int n_record_eliminati = delete_one(&head, inputs[0], inputs[1]);
+              printf("numero record eliminati: %d\n", n_record_eliminati);
+            }
+
+            // clear the inputs
+            for (int i = 0; i < number_of_words - 1; i+=1)  
+              strcpy(inputs[i], " ");
+          }
         } else {
           printf("inserire un COMANDO corretto.\n"); 
         }
